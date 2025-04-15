@@ -25,7 +25,7 @@ def set_cell_border(cell):
 def format_doc(docx_file):
     doc = Document(docx_file)
     for table in doc.tables:
-        if len(table.rows) < 3:
+        if len(table.rows) < 2:
             continue
         col_count = len(table.columns)
         for row in table.rows:
