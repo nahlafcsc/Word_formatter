@@ -27,14 +27,27 @@ def format_doc(docx_file):
     for table in doc.tables:
         if len(table.rows) < 2:
             continue
-        col_count = len(table.columns)
-        for row in table.rows:
-            last_cell = row.cells[col_count - 1]
+
+        if len(table.columns) <= 3:
+            continue
+        for row in table.rows[1:]:  # Skip the header row
+            if not row.cells:
+                continue
+            last_cell = row.cells[-1]
+            if not last_cell.text.strip():  # Skip empty cells
+                continue
+
             last_cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
             for para in last_cell.paragraphs:
-                para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                for run in para.runs:
-                    run.font.size = Pt(12)
+                para.alignment = WD_ALIGN_PARAGRAPH.CENTER    
+        # col_count = len(table.columns)
+        # for row in table.rows:
+        #     last_cell = row.cells[col_count - 1]
+        #     last_cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+        #     for para in last_cell.paragraphs:
+        #         para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        #         for run in para.runs:
+        #             run.font.size = Pt(12)
             set_cell_border(last_cell)
     output = BytesIO()
     doc.save(output)
