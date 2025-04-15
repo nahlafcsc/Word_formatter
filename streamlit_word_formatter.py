@@ -23,7 +23,8 @@ def set_cell_border(cell):
         borders.append(element)
 
 def format_doc(docx_file):
-    doc = Document(docx_file)
+    # doc = Document(docx_file)
+    doc = Document(BytesIO(docx_file.read()))
     for table in doc.tables:
         if len(table.rows) < 2:
             continue
