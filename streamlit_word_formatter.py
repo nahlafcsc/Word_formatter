@@ -41,7 +41,7 @@ def format_doc(docx_file):
     output.seek(0)
     return output
 
-st.title("Word Table Formatter (Last Column Border + Center Dot)")
+st.title("SDG Word Table Formatter (Last Column Border + Center Alignment)")
 
 uploaded_file = st.file_uploader("Upload a Word document (.docx)", type="docx")
 if uploaded_file:
